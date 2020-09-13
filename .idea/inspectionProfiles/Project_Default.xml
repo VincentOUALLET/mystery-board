@@ -1,0 +1,29 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="AnnotationDocBlockClassConstantNotFound" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="AnnotationDocBlockTagClassNotFound" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpIllegalArrayKeyTypeInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpIllegalStringOffsetInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpIncompatibleReturnTypeInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpInconsistentReturnPointsInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpParamsInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedCallbackInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedClassConstantInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedClassInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedConstantInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedFieldInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedFunctionInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedGotoLabelInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedMethodInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUndefinedNamespaceInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUnused" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="PhpUnusedAliasInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUnusedFieldDefaultValueInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUnusedLocalVariableInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUnusedParameterInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUnusedPrivateFieldInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpUnusedPrivateMethodInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PhpWrongForeachArgumentTypeInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+  </profile>
+</component>
