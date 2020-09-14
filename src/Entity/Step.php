@@ -18,6 +18,16 @@ class Step
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $choice1;
@@ -41,16 +51,6 @@ class Step
      * @ORM\Column(type="integer", nullable=true)
      */
     private $choice5;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
 
     public function getId(): ?int
     {
