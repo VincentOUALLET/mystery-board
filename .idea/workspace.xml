@@ -21,12 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="36ce9b70-64bd-4e16-9d79-82389527a853" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/StepCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/StepCrudController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Step.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Step.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/UserAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/UserAuthenticator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bundles/EasyAdminBundle/welcome.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bundles/EasyAdminBundle/welcome.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/edit.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +176,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600018607317</updated>
-      <workItem from="1600018608426" duration="12071000" />
+      <workItem from="1600018608426" duration="23335000" />
     </task>
     <servers />
   </component>
@@ -202,9 +199,9 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="687" y="292" width="957" height="522" key="find.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1600101885316" />
-    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1600101985766">
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1600436759013">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1600101985766" />
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1600436759013" />
   </component>
 </project>

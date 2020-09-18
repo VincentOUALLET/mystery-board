@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StepRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,115 +20,54 @@ class Step
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=Story::class, inversedBy="steps")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $choice1;
+    private $story;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $choice2;
+    private $label_choice_1;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $choice3;
+    private $label_choice_2;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\OneToMany(targetEntity=UserLastSteps::class, mappedBy="last_step")
      */
-    private $choice4;
+    private $userLastSteps;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $choice5;
+    private $custom_id;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $choice_1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $choice_2;
+
+    public function __construct()
+    {
+        $this->userLastSteps = new ArrayCollection();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getChoice1(): ?int
-    {
-        return $this->choice1;
-    }
-
-    public function setChoice1(?int $choice1): self
-    {
-        $this->choice1 = $choice1;
-
-        return $this;
-    }
-
-    public function getChoice2(): ?int
-    {
-        return $this->choice2;
-    }
-
-    public function setChoice2(?int $choice2): self
-    {
-        $this->choice2 = $choice2;
-
-        return $this;
-    }
-
-    public function getChoice3(): ?int
-    {
-        return $this->choice3;
-    }
-
-    public function setChoice3(?int $choice3): self
-    {
-        $this->choice3 = $choice3;
-
-        return $this;
-    }
-
-    public function getChoice4(): ?int
-    {
-        return $this->choice4;
-    }
-
-    public function setChoice4(?int $choice4): self
-    {
-        $this->choice4 = $choice4;
-
-        return $this;
-    }
-
-    public function getChoice5(): ?int
-    {
-        return $this->choice5;
-    }
-
-    public function setChoice5(?int $choice5): self
-    {
-        $this->choice5 = $choice5;
-
-        return $this;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -137,6 +78,109 @@ class Step
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getStory(): ?Story
+    {
+        return $this->story;
+    }
+
+    public function setStory(?Story $story): self
+    {
+        $this->story = $story;
+
+        return $this;
+    }
+
+    public function getLabelChoice1(): ?string
+    {
+        return $this->label_choice_1;
+    }
+
+    public function setLabelChoice1(string $label_choice_1): self
+    {
+        $this->label_choice_1 = $label_choice_1;
+
+        return $this;
+    }
+
+    public function getLabelChoice2(): ?string
+    {
+        return $this->label_choice_2;
+    }
+
+    public function setLabelChoice2(string $label_choice_2): self
+    {
+        $this->label_choice_2 = $label_choice_2;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserLastSteps[]
+     */
+    public function getUserLastSteps(): Collection
+    {
+        return $this->userLastSteps;
+    }
+
+    public function addUserLastStep(UserLastSteps $userLastStep): self
+    {
+        if (!$this->userLastSteps->contains($userLastStep)) {
+            $this->userLastSteps[] = $userLastStep;
+            $userLastStep->setLastStep($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLastStep(UserLastSteps $userLastStep): self
+    {
+        if ($this->userLastSteps->contains($userLastStep)) {
+            $this->userLastSteps->removeElement($userLastStep);
+            // set the owning side to null (unless already changed)
+            if ($userLastStep->getLastStep() === $this) {
+                $userLastStep->setLastStep(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCustomId(): ?string
+    {
+        return $this->custom_id;
+    }
+
+    public function setCustomId(string $custom_id): self
+    {
+        $this->custom_id = $custom_id;
+
+        return $this;
+    }
+
+    public function getChoice1(): ?string
+    {
+        return $this->choice_1;
+    }
+
+    public function setChoice1(?string $choice_1): self
+    {
+        $this->choice_1 = $choice_1;
+
+        return $this;
+    }
+
+    public function getChoice2(): ?string
+    {
+        return $this->choice_2;
+    }
+
+    public function setChoice2(?string $choice_2): self
+    {
+        $this->choice_2 = $choice_2;
 
         return $this;
     }

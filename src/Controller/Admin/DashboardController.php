@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Step;
+use App\Entity\Story;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -31,6 +32,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'icon class', User::class);
         yield MenuItem::linkToCrud('Etapes', 'icon class', Step::class);
-    
+        yield MenuItem::linkToCrud('Histoires', 'icon class', Story::class);
     }
 }
