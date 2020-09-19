@@ -13,5 +13,6 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a class="nav-link" href="{{ path("admin") }}">Admin</a>
         {% endif %}
+        <a class="nav-link text-uppercase text-expanded" href="{{ path("story_index") }}">Histoires</a>
     </div>
 {% endblock %}

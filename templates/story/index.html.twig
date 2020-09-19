@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Story index{% endblock %}
+
+{% block body %}
+    <h1>Histoires</h1>
+    <a class="nav-link text-uppercase text-expanded" href="{{ path('home') }}">Accueil</a>
+    {% for story in stories %}
+        <div class="card btn" href=" {{ path('story_show', {'title': story.title}) }} ">
+            <div>
+                <h2>{{ story.title }}</h2>
+                <p>{{ story.description }}</p>
+            </div>
+        </div>
+    {% else %}
+        <tr>
+            <td colspan="6">no records found</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

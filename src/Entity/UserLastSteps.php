@@ -23,6 +23,18 @@ class UserLastSteps
      */
     private $last_step;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Story::class, inversedBy="userLastSteps")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $story;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userLastSteps")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,6 +48,30 @@ class UserLastSteps
     public function setLastStep(?Step $last_step): self
     {
         $this->last_step = $last_step;
+
+        return $this;
+    }
+
+    public function getStory(): ?Story
+    {
+        return $this->story;
+    }
+
+    public function setStory(?Story $story): self
+    {
+        $this->story = $story;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

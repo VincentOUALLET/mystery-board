@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,6 +19,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->setLastStep(1);
+        $this->userLastSteps = new ArrayCollection();
     }
     /**
      * @ORM\Id
@@ -45,6 +48,11 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $last_step;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserLastSteps::class, mappedBy="user")
+     */
+    private $userLastSteps;
 
     public function getId(): ?int
     {
@@ -132,6 +140,37 @@ class User implements UserInterface
     public function setLastStep(int $last_step): self
     {
         $this->last_step = $last_step;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserLastSteps[]
+     */
+    public function getUserLastSteps(): Collection
+    {
+        return $this->userLastSteps;
+    }
+
+    public function addUserLastStep(UserLastSteps $userLastStep): self
+    {
+        if (!$this->userLastSteps->contains($userLastStep)) {
+            $this->userLastSteps[] = $userLastStep;
+            $userLastStep->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLastStep(UserLastSteps $userLastStep): self
+    {
+        if ($this->userLastSteps->contains($userLastStep)) {
+            $this->userLastSteps->removeElement($userLastStep);
+            // set the owning side to null (unless already changed)
+            if ($userLastStep->getUser() === $this) {
+                $userLastStep->setUser(null);
+            }
+        }
 
         return $this;
     }

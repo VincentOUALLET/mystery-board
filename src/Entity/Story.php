@@ -39,9 +39,15 @@ class Story
      */
     private $steps;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserLastSteps::class, mappedBy="story")
+     */
+    private $userLastSteps;
+
     public function __construct()
     {
         $this->steps = new ArrayCollection();
+        $this->userLastSteps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,6 +104,37 @@ class Story
             // set the owning side to null (unless already changed)
             if ($step->getStory() === $this) {
                 $step->setStory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserLastSteps[]
+     */
+    public function getUserLastSteps(): Collection
+    {
+        return $this->userLastSteps;
+    }
+
+    public function addUserLastStep(UserLastSteps $userLastStep): self
+    {
+        if (!$this->userLastSteps->contains($userLastStep)) {
+            $this->userLastSteps[] = $userLastStep;
+            $userLastStep->setStory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLastStep(UserLastSteps $userLastStep): self
+    {
+        if ($this->userLastSteps->contains($userLastStep)) {
+            $this->userLastSteps->removeElement($userLastStep);
+            // set the owning side to null (unless already changed)
+            if ($userLastStep->getStory() === $this) {
+                $userLastStep->setStory(null);
             }
         }
 
