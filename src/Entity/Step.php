@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Step
 {
+    public function __toString()
+    {
+        return $this->getCustomId();
+    }
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

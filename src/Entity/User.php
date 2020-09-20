@@ -18,7 +18,6 @@ class User implements UserInterface
     
     public function __construct()
     {
-        $this->setLastStep(1);
         $this->userLastSteps = new ArrayCollection();
     }
     /**
@@ -43,11 +42,6 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $last_step;
 
     /**
      * @ORM\OneToMany(targetEntity=UserLastSteps::class, mappedBy="user")
@@ -130,18 +124,6 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getLastStep(): ?int
-    {
-        return $this->last_step;
-    }
-
-    public function setLastStep(int $last_step): self
-    {
-        $this->last_step = $last_step;
-
-        return $this;
     }
 
     /**

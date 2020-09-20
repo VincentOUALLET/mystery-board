@@ -3,18 +3,21 @@
 {% block title %}Story index{% endblock %}
 
 {% block body %}
-    <h1>Histoires</h1>
+    <div class="container-fluid">
+
+    <h1 class="text-center">Histoires</h1>
     <a class="nav-link text-uppercase text-expanded" href="{{ path('home') }}">Accueil</a>
     {% for story in stories %}
-        <div class="card btn" href=" {{ path('story_show', {'title': story.title}) }} ">
+        <a class="card btn" href=" {{ path('story_show', {'story_id': story.id, 'user_id': user.id}) }} ">
             <div>
                 <h2>{{ story.title }}</h2>
                 <p>{{ story.description }}</p>
             </div>
-        </div>
+        </a>
     {% else %}
         <tr>
-            <td colspan="6">no records found</td>
+            <td colspan="6">Pas d'histoire créée</td>
         </tr>
     {% endfor %}
+    </div>
 {% endblock %}

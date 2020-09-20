@@ -19,7 +19,6 @@ class UserLastSteps
 
     /**
      * @ORM\ManyToOne(targetEntity=Step::class, inversedBy="userLastSteps")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $last_step;
 

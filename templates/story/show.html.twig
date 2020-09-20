@@ -3,6 +3,29 @@
 {% block title %}Story show{% endblock %}
 
 {% block body %}
-    <h1>{{story}}</h1>
-    
+    <div class="container-fluid">
+        <a class="text-uppercase btn btn-warning my-3" href="{{ path('home') }}">Accueil</a>
+        <h1>{{story.title}}</h1>
+        {% if step != "" %}
+            <p class="text-justify">{{step.description}}</p>
+            {% if step.getChoice1 != "" %}
+                <div class="row">
+                    <a href="{{ path('set_last_step', {'story_id': story.id, 'custom_id': step.getChoice1}) }}" class="bg-light col-lg-6 col-xs-12 card btn">
+                        <div class="p-3">
+                            <p>Choix 1:</p>
+                            <p class="text-justify">{{step.getLabelChoice1}}</p>
+                        </div>
+                    </a>
+                    <a href=" {{ path('set_last_step', {'story_id': story.id, 'custom_id': step.getChoice2}) }} " class="bg-light col-lg-6 col-xs-12 card btn">
+                        <div class="p-3">
+                            <p>Choix 2:</p>
+                            <p class="text-justify">{{step.getLabelChoice2}}</p>
+                        </div>
+                    </a>
+                </div>    
+            {% endif %}
+        {% else %}
+            <div>Etapes non remplies</div>
+        {% endif %}
+    </div>
 {% endblock %}

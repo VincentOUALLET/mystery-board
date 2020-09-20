@@ -7,12 +7,13 @@
         <h1 class="text-center">Bienvenue</h1>
         {% if app.user == "" %}
             <a class="nav-link text-uppercase text-expanded" href="{{ path("app_login") }}">Se connecter</a>
+            <p>Connectez-vous pour accéder aux histoires</p>
         {% else %}
             <a class="nav-link text-uppercase text-expanded" href="{{ path("app_logout") }}">Se déconnecter</a>
+            <a class="nav-link text-uppercase text-expanded" href="{{ path("story_index") }}">Histoires</a>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <a class="nav-link" href="{{ path("admin") }}">Admin</a>
         {% endif %}
-        <a class="nav-link text-uppercase text-expanded" href="{{ path("story_index") }}">Histoires</a>
     </div>
 {% endblock %}

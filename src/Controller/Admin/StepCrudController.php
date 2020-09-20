@@ -22,10 +22,10 @@ class StepCrudController extends AbstractCrudController
             IntegerField::new('id', 'Identifiant')->onlyOnIndex(),
             AssociationField::new('story', 'Nom de l\'histoire'),
             TextField::new('custom_id', 'Identifiant customisé de l\'étape'),
-            TextEditorField::new('description', 'Description'),
-            TextEditorField::new('label_choice_1', 'Choix 1'),
+            TextField::new('description', 'Description'),
+            TextField::new('label_choice_1', 'Choix 1'),
             TextField::new('choice_1', 'Choix 1 redirige vers étape'),
-            TextEditorField::new('label_choice_2', 'Choix 2'),
+            TextField::new('label_choice_2', 'Choix 2'),
             TextField::new('choice_2', 'Choix 2 redirige vers étape'),
         ];
     }

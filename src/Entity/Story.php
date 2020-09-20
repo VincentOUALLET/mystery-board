@@ -44,6 +44,11 @@ class Story
      */
     private $userLastSteps;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Step::class, cascade={"persist", "remove"})
+     */
+    private $first_step;
+
     public function __construct()
     {
         $this->steps = new ArrayCollection();
@@ -137,6 +142,18 @@ class Story
                 $userLastStep->setStory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstStep(): ?Step
+    {
+        return $this->first_step;
+    }
+
+    public function setFirstStep(Step $first_step): self
+    {
+        $this->first_step = $first_step;
 
         return $this;
     }
