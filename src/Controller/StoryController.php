@@ -19,8 +19,6 @@ class StoryController extends AbstractController
     
     /**
      * @Route("/", name="story_index", methods={"GET"})
-     * @param StoryRepository $storyRepository
-     * @return Response
      */
     public function index(StoryRepository $storyRepository): Response
     {
@@ -31,7 +29,14 @@ class StoryController extends AbstractController
     }
 
     /**
-     * @Route("/{story_id}/{user_id}", name="story_show", methods={"GET"})
+     * @Route("/{story_id}",
+     *  name="story_show",
+     *  methods={"GET"},
+     *  requirements={
+     *      "story_id"  =   "\d",
+     *      "custom_id" =   "[A-Za-z0-9]*",
+     *  })
+     * @param int $story_id
      */
     public function show(
         UserLastStepsRepository $userLastStepsRepository,
@@ -39,8 +44,11 @@ class StoryController extends AbstractController
         int $story_id
         )
     {
-        // dd(0);
         $user = $this->getUser();
+        if ($user === null)
+        {
+            return $this->render('security/login.html.twig', ['last_username' => null, 'error' => null]);
+        }
         $story = $storyRepository->find($story_id);
         $userLastStep = $userLastStepsRepository->findBy(
             [
@@ -65,31 +73,46 @@ class StoryController extends AbstractController
             $last_step = $userLastStep->getLastStep();
 
         }
+        // dd($last_step);
+        $isStep1AnEnding = $last_step->getChoice1() === null;
+        $isStep2AnEnding = $last_step->getChoice2() === null;
 
         return $this->render('story/show.html.twig', [
             'user' => $user,
             'story' => $story,
             'step' => $last_step,
+            'isStep1AnEnding' => $isStep1AnEnding,
+            'isStep2AnEnding' => $isStep2AnEnding,
         ]);
     }
 
     /**
-     * @Route("/{story_id}/{custom_id}", name="set_last_step", methods={"GET"})
+     * @Route("/{story_id}/custom/{custom_id}",
+     *  name="set_last_step",
+     *  methods={"GET"},
+     *  requirements={
+     *      "story_id"  =   "\d",
+     *      "custom_id" =   "[A-Za-z0-9]*",
+     *  })
      */
     public function setLastStep(
         UserLastStepsRepository $userLastStepsRepository,
         StoryRepository $storyRepository,
         StepRepository $stepRepository,
         int $story_id,
-        int $custom_id
+        string $custom_id
         )
     {
         $user = $this->getUser();
-        dd($user);
+        if ($user === null)
+        {
+            return $this->render('security/login.html.twig', ['last_username' => null, 'error' => null]);
+        }
+        $story = $storyRepository->find($story_id);
 
         $newStep = $stepRepository->findBy(
             [
-                "story_id" => $story_id,
+                "story" => $story,
                 "custom_id" => $custom_id,
             ]
             );
@@ -102,11 +125,56 @@ class StoryController extends AbstractController
             ],
         );
 
-        $userLastStep->setLastStep($newStep);
+        $userLastStep[0]->setLastStep($newStep[0]);
 
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($userLastStep);
+        $entityManager->persist($userLastStep[0]);
         $entityManager->flush();
+
+        return $this->render('story/show.html.twig', [
+            'user' => $user,
+            'story' => $story,
+            'step' => $newStep[0],
+        ]);
+    }
+
+    /**
+     * @Route("/reset/{story_id}",
+     *  name="reset_last_step",
+     *  methods={"GET"},
+     *  requirements={
+     *      "story_id"  =   "\d",
+     *      "custom_id" =   "[A-Za-z0-9]*",
+     *  })
+     */
+    public function resetLastStep(
+        UserLastStepsRepository $userLastStepsRepository,
+        StoryRepository $storyRepository,
+        StepRepository $stepRepository,
+        int $story_id
+        )
+    {
+        $user = $this->getUser();
+        if ($user === null)
+        {
+            return $this->render('security/login.html.twig', ['last_username' => null, 'error' => null]);
+        }
+        $story = $storyRepository->find($story_id);
+        
+        $userLastStep = $userLastStepsRepository->findBy(
+            [
+                'user' => $user,
+                'story' => $story,
+            ],
+        );
+
+        $userLastStep[0]->setLastStep($story->getFirstStep());
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($userLastStep[0]);
+        $entityManager->flush();
+
+        $newStep = $userLastStep[0]->getLastStep();
 
         return $this->render('story/show.html.twig', [
             'user' => $user,
@@ -114,4 +182,6 @@ class StoryController extends AbstractController
             'step' => $newStep,
         ]);
     }
+
+    
 }

@@ -5,6 +5,7 @@
 {% block body %}
     <div class="container-fluid">
         <a class="text-uppercase btn btn-warning my-3" href="{{ path('home') }}">Accueil</a>
+        <a class="text-uppercase btn btn-danger my-3" href="{{ path('reset_last_step', {'story_id': story.id}) }}">Recommencer l'histoire</a>
         <h1>{{story.title}}</h1>
         {% if step != "" %}
             <p class="text-justify">{{step.description}}</p>
