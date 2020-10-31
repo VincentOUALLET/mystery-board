@@ -6,7 +6,7 @@
     <div class="container-fluid">
 
     <h1 class="text-center">Histoires</h1>
-    <a class="nav-link text-uppercase text-expanded" href="{{ path('home') }}">Accueil</a>
+    <a class="btn btn-warning text-white" href="{{ path('home') }}"><h2>Accueil</h2></a>
     {% for story in stories %}
         <a class="card btn" href=" {{ path('story_show', {'story_id': story.id, 'user_id': user.id}) }} ">
             <div>
@@ -15,9 +15,9 @@
             </div>
         </a>
     {% else %}
-        <tr>
-            <td colspan="6">Pas d'histoire créée</td>
-        </tr>
+        <div>
+            <p class="text-center" style="margin-top: 10%">Pas d'histoire créée</p>
+        </div>
     {% endfor %}
     </div>
 {% endblock %}

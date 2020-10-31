@@ -1,5 +1,11 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+
 body p, h2, a {
-    font-size: 200%;
+    font-size: 180%;
 }
 
 .card {
@@ -9,5 +15,16 @@ body p, h2, a {
 }
 
 h1 {
+    color: white;
     font-size: 500%;
+}
+
+h3 {
+    font-size: 170%;
+    line-height: 130%;
+}
+
+.description {
+    color: red;
+    font-size: 200%;
 }

@@ -4,16 +4,22 @@
 
 {% block body %}
     <div>
-        <h1 class="text-center">Bienvenue sur DRAWER</h1>
+        <h1 class="text-center">Bienvenue sur StoryDrawer</h1>
         {% if app.user == "" %}
-            <a class="nav-link text-uppercase text-expanded" href="{{ path("app_login") }}">Se connecter</a>
-            <p>Connectez-vous pour accéder aux histoires</p>
+            <a class="btn btn-primary m-3" href="{{ path("app_login") }}"><h2>Se connecter</h2></a>
+            <p class="m-3">Connectez-vous pour accéder aux histoires</p>
         {% else %}
-            <a class="nav-link text-uppercase text-expanded" href="{{ path("app_logout") }}">Se déconnecter</a>
-            <a class="nav-link text-uppercase text-expanded" href="{{ path("story_index") }}">Histoires</a>
-        {% endif %}
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="nav-link" href="{{ path("admin") }}">Admin</a>
+            <div class="m-3 text-right">
+                <a class="btn btn-danger" href="{{ path("app_logout") }}"><h2>Se déconnecter</h2></a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-warning text-white" href="{{ path("admin") }}"><h2>Espace admin</h2></a>
+                {% endif %}
+            </div>
+            <div class="m-3 text-center">
+                <a class="btn btn-success" href="{{ path("story_index") }}" style="margin-top: 10%">
+                    <h2>Accéder aux histoires</h2>
+                </a>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

@@ -8,22 +8,22 @@
         <a class="text-uppercase btn btn-danger my-3" href="{{ path('reset_last_step', {'story_id': story.id}) }}">Recommencer l'histoire</a>
         <h1>{{story.title}}</h1>
         {% if step != "" %}
-            <p class="text-justify">{{step.description}}</p>
+            <h2 class="text-justify">{{step.description|raw}}</h2>
             {% if step.getChoice1 != "" %}
                 <div class="row">
                     <a href="{{ path('set_last_step', {'story_id': story.id, 'custom_id': step.getChoice1}) }}" class="bg-light col-lg-6 col-xs-12 card btn">
                         <div class="p-3">
                             <p>Choix 1:</p>
-                            <p class="text-justify">{{step.getLabelChoice1}}</p>
+                            <h2 class="text-justify">{{step.getLabelChoice1|raw}}</h2>
                         </div>
                     </a>
                     <a href=" {{ path('set_last_step', {'story_id': story.id, 'custom_id': step.getChoice2}) }} " class="bg-light col-lg-6 col-xs-12 card btn">
                         <div class="p-3">
                             <p>Choix 2:</p>
-                            <p class="text-justify">{{step.getLabelChoice2}}</p>
+                            <h2 class="text-justify">{{step.getLabelChoice2|raw}}</h2>
                         </div>
                     </a>
-                </div>    
+                </div>
             {% endif %}
         {% else %}
             <div>Etapes non remplies</div>

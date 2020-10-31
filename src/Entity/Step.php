@@ -14,7 +14,7 @@ class Step
 {
     public function __toString()
     {
-        return $this->getCustomId();
+        return $this->getStory() . " - " . $this->getCustomId();
     }
     /**
      * @ORM\Id

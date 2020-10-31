@@ -34,7 +34,7 @@ class StoryController extends AbstractController
      *  methods={"GET"},
      *  requirements={
      *      "story_id"  =   "\d",
-     *      "custom_id" =   "[A-Za-z0-9]*",
+     *      "custom_id" =   "[A-Za-z0-9_]*",
      *  })
      * @param int $story_id
      */
@@ -74,15 +74,15 @@ class StoryController extends AbstractController
 
         }
         // dd($last_step);
-        $isStep1AnEnding = $last_step->getChoice1() === null;
-        $isStep2AnEnding = $last_step->getChoice2() === null;
+        // $isStep1AnEnding = $last_step->getChoice1() === null;
+        // $isStep2AnEnding = $last_step->getChoice2() === null;
 
         return $this->render('story/show.html.twig', [
             'user' => $user,
             'story' => $story,
             'step' => $last_step,
-            'isStep1AnEnding' => $isStep1AnEnding,
-            'isStep2AnEnding' => $isStep2AnEnding,
+            // 'isStep1AnEnding' => $isStep1AnEnding,
+            // 'isStep2AnEnding' => $isStep2AnEnding,
         ]);
     }
 
@@ -92,7 +92,7 @@ class StoryController extends AbstractController
      *  methods={"GET"},
      *  requirements={
      *      "story_id"  =   "\d",
-     *      "custom_id" =   "[A-Za-z0-9]*",
+     *      "custom_id" =   "[A-Za-z0-9_]*",
      *  })
      */
     public function setLastStep(
@@ -144,7 +144,7 @@ class StoryController extends AbstractController
      *  methods={"GET"},
      *  requirements={
      *      "story_id"  =   "\d",
-     *      "custom_id" =   "[A-Za-z0-9]*",
+     *      "custom_id" =   "[A-Za-z0-9_]*",
      *  })
      */
     public function resetLastStep(
