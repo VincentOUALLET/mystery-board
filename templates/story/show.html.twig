@@ -4,26 +4,37 @@
 
 {% block body %}
     <div class="container-fluid">
-        <a class="text-uppercase btn btn-warning my-3" href="{{ path('home') }}">Accueil</a>
-        <a class="text-uppercase btn btn-danger my-3" href="{{ path('reset_last_step', {'story_id': story.id}) }}">Recommencer l'histoire</a>
+        <a class="btn btn-warning my-3" href="{{ path('home') }}">
+            <h4>Accueil</h4>
+        </a>
+        <a class="btn btn-danger my-3" href="{{ path('reset_last_step', {'story_id': story.id}) }}">
+            <h4>Recommencer l'histoire</h4>
+        </a>
         <h1>{{story.title}}</h1>
         {% if step != "" %}
-            <h2 class="text-justify">{{step.description|raw}}</h2>
+            <h3 class="text-justify">{{step.description|raw}}</h3>
             {% if step.getChoice1 != "" %}
                 <div class="row">
                     <a href="{{ path('set_last_step', {'story_id': story.id, 'custom_id': step.getChoice1}) }}" class="bg-light col-lg-6 col-xs-12 card btn">
                         <div class="p-3">
                             <p>Choix 1:</p>
-                            <h2 class="text-justify">{{step.getLabelChoice1|raw}}</h2>
+                            <h3 class="text-justify">{{step.getLabelChoice1|raw}}</h3>
                         </div>
                     </a>
                     <a href=" {{ path('set_last_step', {'story_id': story.id, 'custom_id': step.getChoice2}) }} " class="bg-light col-lg-6 col-xs-12 card btn">
                         <div class="p-3">
                             <p>Choix 2:</p>
-                            <h2 class="text-justify">{{step.getLabelChoice2|raw}}</h2>
+                            <h3 class="text-justify">{{step.getLabelChoice2|raw}}</h3>
                         </div>
                     </a>
                 </div>
+            {% else %}
+                {% if step.getCustomId != "postscriptum" %}    
+                    <div class="row">
+                        <a href="{{ path('set_last_step', {'story_id': story.id, 'custom_id': "postscriptum"}) }}" class="btn btn-success m-3 ">
+                        <h2>Post-scriptum</h2></a>
+                    </div>
+                {% endif %}
             {% endif %}
         {% else %}
             <div>Etapes non remplies</div>

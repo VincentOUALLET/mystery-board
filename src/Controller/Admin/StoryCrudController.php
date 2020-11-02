@@ -21,8 +21,8 @@ class StoryCrudController extends AbstractCrudController
         return [
             IntegerField::new('id', 'Identifiant')->onlyOnIndex(),
             TextField::new('title', 'Titre'),
-            TextField::new('description', 'Description'),
-            AssociationField::new('first_step', 'Première étape (important à remplir une fois la première étape créée)'),
+            TextEditorField::new('description', 'Description'),
+            AssociationField::new('first_step', 'Première étape'),
         ];
     }
 }

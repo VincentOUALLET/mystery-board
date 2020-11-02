@@ -9,10 +9,12 @@ use App\Entity\UserLastSteps;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/histoires")
+ * @IsGranted("ROLE_USER", statusCode=403,
+ * message="Vous n'êtes pas ou plus connecté, retournez vous connecter et plus jamais rien ne vous sera refusé! (l'état d'avancée de votre histoire a été sauvegardé)")
  */
 class StoryController extends AbstractController
 {
@@ -36,7 +38,6 @@ class StoryController extends AbstractController
      *      "story_id"  =   "\d",
      *      "custom_id" =   "[A-Za-z0-9_]*",
      *  })
-     * @param int $story_id
      */
     public function show(
         UserLastStepsRepository $userLastStepsRepository,
@@ -44,43 +45,62 @@ class StoryController extends AbstractController
         int $story_id
         )
     {
-        $user = $this->getUser();
-        if ($user === null)
+        $currentUser = $this->getUser();
+        if ($currentUser === null)
         {
             return $this->render('security/login.html.twig', ['last_username' => null, 'error' => null]);
         }
-        $story = $storyRepository->find($story_id);
-        $userLastStep = $userLastStepsRepository->findBy(
+        $currentStory = $storyRepository->find($story_id);
+        $currentUserSLastStep = $userLastStepsRepository->findBy(
             [
-                'user' => $user,
-                'story' => $story,
+                'user' => $currentUser,
+                'story' => $currentStory,
             ],
         );
 
-        if ($userLastStep)
+        if ($currentUserSLastStep)
         {
-            $last_step = $userLastStep[0]->getLastStep();
+            $currentLastStep = $currentUserSLastStep[0]->getLastStep();
         } else {
-            $userLastStep = new UserLastSteps();
-            $userLastStep->setLastStep($story->getFirstStep())
-                        ->setStory($story)
-                        ->setUser($user);
+            $currentUserSLastStep = new UserLastSteps();
+            $currentUserSLastStep->setLastStep($currentStory->getFirstStep())
+                        ->setStory($currentStory)
+                        ->setUser($currentUser);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($userLastStep);
-            $entityManager->flush();
+            $entityManager->persist($currentUserSLastStep);
+            try {
+                $entityManager->flush();
+            } catch(\Exception $e) {
+                dd($e);
+                
+            ////////////////////////////////////////////////
+            // GALLARIAN'S GOOD CODING PRACTICES TO IMPLEMENT IF POSSIBLE
+            // $this->getDoctrine()->resetManager();
+            //     $logger->add("Group", "add", "danger", "There was a problem saving, please try again later", $e->getMessage());
+            //    // $this->addFlash("danger", $translator->trans("error.flush"));
+            // /////////////////////////////////////////////
+            
+                    $this->addFlash("danger", "Problème d'accès au sauvegardes ou au serveur! Pas de panique, vous pourrez toujours rééssayer plus tard!");
+    
+    
+                    return $this->redirectToRoute("story_show", [
+                        'story_id' => $story_id,
+                        'custom_id' => $custom_id]);
+            } 
 
-            $last_step = $userLastStep->getLastStep();
+            $currentLastStep = $currentUserSLastStep->getLastStep();
 
         }
-        // dd($last_step);
-        // $isStep1AnEnding = $last_step->getChoice1() === null;
-        // $isStep2AnEnding = $last_step->getChoice2() === null;
+        // //////////////////////
+        // WIP - adding ending templates tests in purpose to add 1 to the total of the current user's ended templates (stats)
+        // $isStep1AnEnding = $currentLastStep->getChoice1() === null;
+        // $isStep2AnEnding = $currentLastStep->getChoice2() === null;
 
         return $this->render('story/show.html.twig', [
-            'user' => $user,
-            'story' => $story,
-            'step' => $last_step,
+            'user' => $currentUser,
+            'story' => $currentStory,
+            'step' => $currentLastStep,
             // 'isStep1AnEnding' => $isStep1AnEnding,
             // 'isStep2AnEnding' => $isStep2AnEnding,
         ]);
@@ -103,8 +123,8 @@ class StoryController extends AbstractController
         string $custom_id
         )
     {
-        $user = $this->getUser();
-        if ($user === null)
+        $currentUser = $this->getUser();
+        if ($currentUser === null)
         {
             return $this->render('security/login.html.twig', ['last_username' => null, 'error' => null]);
         }
@@ -118,21 +138,39 @@ class StoryController extends AbstractController
             );
 
         
-        $userLastStep = $userLastStepsRepository->findBy(
+        $currentUserSLastStep = $userLastStepsRepository->findBy(
             [
-                'user' => $user,
+                'user' => $currentUser,
                 'story' => $story,
             ],
         );
 
-        $userLastStep[0]->setLastStep($newStep[0]);
+        $currentUserSLastStep[0]->setLastStep($newStep[0]);
 
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($userLastStep[0]);
-        $entityManager->flush();
+        $entityManager->persist($currentUserSLastStep[0]);
+        try {
+            $entityManager->flush();
+        } catch(\Exception $e) {
+            dd($e);
+
+            ////////////////////////////////////////////////
+            // GALLARIAN'S GOOD CODING PRACTICES TO IMPLEMENT IF POSSIBLE
+            // $this->getDoctrine()->resetManager();
+            //     $logger->add("Group", "add", "danger", "There was a problem saving, please try again later", $e->getMessage());
+            //    // $this->addFlash("danger", $translator->trans("error.flush"));
+            // /////////////////////////////////////////////
+
+                $this->addFlash("danger", "Problème de sauvegarde! Pas de panique, l'étape précédente a été sauvegardée!");
+
+
+                return $this->redirectToRoute("story_show", [
+                    'story_id' => $story_id,
+                    'custom_id' => $custom_id]);
+        } 
 
         return $this->render('story/show.html.twig', [
-            'user' => $user,
+            'user' => $currentUser,
             'story' => $story,
             'step' => $newStep[0],
         ]);
@@ -143,8 +181,7 @@ class StoryController extends AbstractController
      *  name="reset_last_step",
      *  methods={"GET"},
      *  requirements={
-     *      "story_id"  =   "\d",
-     *      "custom_id" =   "[A-Za-z0-9_]*",
+     *      "story_id"  =   "\d"
      *  })
      */
     public function resetLastStep(
@@ -154,34 +191,56 @@ class StoryController extends AbstractController
         int $story_id
         )
     {
-        $user = $this->getUser();
-        if ($user === null)
+        $currentUser = $this->getUser();
+        if ($currentUser === null)
         {
             return $this->render('security/login.html.twig', ['last_username' => null, 'error' => null]);
         }
         $story = $storyRepository->find($story_id);
         
-        $userLastStep = $userLastStepsRepository->findBy(
+        $currentUserSLastStep = $userLastStepsRepository->findBy(
             [
-                'user' => $user,
+                'user' => $currentUser,
                 'story' => $story,
             ],
         );
 
-        $userLastStep[0]->setLastStep($story->getFirstStep());
+        // setting the current user's last step to the first one of the story
+        $currentUserSLastStep[0]->setLastStep($story->getFirstStep());
+
+        // setting the number of times where the current user restarted the current story (stats)
+        $newRestartNumber = $currentUserSLastStep[0]->getRestartNumber() + 1;
+        $currentUserSLastStep[0]->setRestartNumber($newRestartNumber);
 
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($userLastStep[0]);
-        $entityManager->flush();
+        $entityManager->persist($currentUserSLastStep[0]);
+        
+        try {
+            $entityManager->flush();
+        } catch(\Exception $e) {
+            dd($e);
 
-        $newStep = $userLastStep[0]->getLastStep();
+            ////////////////////////////////////////////////
+            // GALLARIAN'S GOOD CODING PRACTICES TO IMPLEMENT IF POSSIBLE
+            // $this->getDoctrine()->resetManager();
+            //     $logger->add("Group", "add", "danger", "There was a problem saving, please try again later", $e->getMessage());
+            //    // $this->addFlash("danger", $translator->trans("error.flush"));
+            // /////////////////////////////////////////////
+            
+                $this->addFlash("danger", "Problème de sauvegarde empêchant de recommencer! S'il vous plaît rééssayez plus tard");
+
+
+                return $this->redirectToRoute("story_show", ['story_id' => $story_id]);
+        } 
+        
+
+        $newStep = $currentUserSLastStep[0]->getLastStep();
 
         return $this->render('story/show.html.twig', [
-            'user' => $user,
+            'user' => $currentUser,
             'story' => $story,
             'step' => $newStep,
         ]);
     }
 
-    
 }

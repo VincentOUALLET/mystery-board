@@ -11,15 +11,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Il y a déjà un compte avec cette adresse mail, vous pouvez vous connecter")
  */
 class User implements UserInterface
 {
     
-    public function __construct()
-    {
-        $this->userLastSteps = new ArrayCollection();
-    }
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -47,6 +43,19 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=UserLastSteps::class, mappedBy="user")
      */
     private $userLastSteps;
+
+    public function __construct()
+    {
+        $this->userLastSteps = new ArrayCollection();
+        $this->setRoles([
+            "ROLE_USER"
+        ]);
+    }
+
+    public function __toString()
+    {
+        return $this->getEmail();
+    }
 
     public function getId(): ?int
     {

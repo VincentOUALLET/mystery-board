@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="preload" as="font" href="{{asset('fonts/imprimerie-webfont.woff2')}}" type="font/woff2" crossorigin="anonymous">
+        <link rel="preload" as="font" href="{{asset('fonts/imprimerie-webfont.woff')}}" type="font/woff" crossorigin="anonymous">
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
         {% block stylesheets %}{% endblock %}
     </head>

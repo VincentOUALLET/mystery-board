@@ -9,13 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=StoryRepository::class)
+ * IsGranted("ROLE_USER", statusCode=404, message="Vous n'êtes pas/plus connecté")
  */
 class Story
 {
-    public function __toString()
-    {
-        return $this->getTitle();
-    }
     
     /**
      * @ORM\Id
@@ -53,6 +50,11 @@ class Story
     {
         $this->steps = new ArrayCollection();
         $this->userLastSteps = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 
     public function getId(): ?int
