@@ -13,10 +13,13 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-###> perso ###
+###> Env ###
 /.env
 /.env.local
 /.env.local.php
 /.env.*.local
-/mig/
-###< symfony/framework-bundle ###
+###< Env ###
+
+###> Others ###
+storydrawer-abcbc8bd1631.json
+###< Others ###
