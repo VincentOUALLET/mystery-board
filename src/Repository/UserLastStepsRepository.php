@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\UserLastSteps;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Story;
 
 /**
  * @method UserLastSteps|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +19,17 @@ class UserLastStepsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserLastSteps::class);
     }
+
+    // /**
+    //  * @return int|mixed|string
+    //  */
+    // public function countAllUsersByStory(Story $story)
+    // {
+    //     $queryBuilder = $this->createQueryBuilder('a');
+    //     $queryBuilder->select('COUNT(a.id) as value WHERE story_id='.$story->getId());
+
+    //     return $queryBuilder->getQuery()->getResult();
+    // }
 
     // /**
     //  * @return UserLastSteps[] Returns an array of UserLastSteps objects

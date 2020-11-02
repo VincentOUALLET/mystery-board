@@ -6,11 +6,11 @@
     <div class="container-fluid">
 
     <h1 class="text-center">Histoires</h1>
-    <a class="btn btn-warning text-white" href="{{ path('home') }}"><h2>Accueil</h2></a>
+    <a class="btn btn-warning text-white mb-3" href="{{ path('home') }}"><h2>Accueil</h2></a>
     {% for story in stories %}
         <a class="card btn" href=" {{ path('story_show', {'story_id': story.id, 'user_id': user.id}) }} ">
             <div>
-                <h2>{{ story.title }}</h2>
+                <h2 class="font-weight-bold">{{ story.title }}</h2>
                 <p>{{ story.description }}</p>
             </div>
         </a>

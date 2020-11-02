@@ -5,4 +5,13 @@
 
 {% block page_content %}
  <a class="btn btn-primary" href="{{ path("home") }}">Retour au site</a>
+ <h2 class="mt-3">Nombre total d'utilisateurs : {{usersCount}} </h2>
+ <div>
+    {# <h2 class="mt-3">Nombres d'utilisateurs par histoires : </h2>
+    <div>
+        {% for story in stories %}
+            {{story.title}}
+        {% endfor %}
+    </div> #}
+</div>
 {% endblock %}

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "storydrawer",
+  "private_key_id": "abcbc8bd163194bbf92b89c00b2ef2b75c0194e0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCtM3oKnmxqNkGI\ndSk0oQ8obKMtOhlCZ1QeROnKyco5qblarvgbsY1+UdlQZHASUIDTu/u8A8oRcKpU\nOsIzLM/yAaMFI9in9GIJUvUhyM+D8uxvOQL9UwjXM5dw8nU20vxTMZebyqhLaamr\ny0Fzr3IUwfsiHUqWCTlNAEf64BfjZoaNyqCPmatfQyzymgkpUk6QwLTZHyRe8ijs\nb08nSTK2y72cOmp1vA4RbOHz3Hp6ovDly+ZgIGqxm91UGbu1Ln26JH7AF3hfFMj2\nAUhrAp7ru1WAwqcl3NzTisHWNtnTOaYXjiaEuV96jeFHOFloYjTjUJz6rO9EsLw0\n3l/oZ7DHAgMBAAECggEAGJEK8sNNHgo7ZK8251fKPkdHzzFvcG4W41g4+mIsLzOg\nrnkk3fYNhhOhSaLatpj5PORsAgYI56JdtnwYcYkd/Es5I+XVZDU99pPwCxkK6MH7\nFpI1QgNAvMLSQdtSFDL8RpHr2YAhkNjC5TLQ7NIU0gGVrQgPPUAVAulS9wWevcqK\ncN5BSH1xPoMmpuNAh5EKTV9WT6LhNv+5cTYrNHXGSFrR7vMrmcNQg8gSHzzaLw0b\nkS7i/laBvCZ+66aMr/aWxBsNiye0WWZvt/WZmnGD7vHHT4UsfsZt4dv55tt0mPpJ\nKowqtobS3wFaZPdJ45Y2nfrj6gA6iWOQWycdCGHdwQKBgQDweLhjspTilBkyYzpk\nRJFYlI4q1R8z3yCZuSCFe0YnoZzndCrIZUwAdLrmtBA2vli5FQ0uJ7oOTyY8jjT5\nUjLYDuvps//e4qSMDtbTFUXx2Zp7NX/Iw64ZDbYoWijgmfAskJRlxPKRvfZaSBcl\neGRrtyGUzG2R6wxPijKPsH9g5wKBgQC4YrIaA6fA2q98nFaZf0Nt5moMruDg9gen\nUVrpgkV8P8GrnSzpNdbHIEqZmm6LZYEWcD4V/vvvrSsahaYbOY4/nXTGfAZtrTxL\nc5BP703rWAOBt9GPiepWhiKP11IOusN7GgKYXbFgQK8/Eot0gM+KgVdFOIjFTgSL\ni+fROUTVIQKBgDlAVI4P71h+b/1KGJXUqVIQlERoVzRvVAClTbPZ5Jr85DFKvADX\n9R9Kq1DP3+hYqyDtfSTW+nn7qBvUs5IEWuyLqOkMHMgA57IculKpBu0MpLXex9yR\nkfqPBCZZSNAodkD17w7HtAS02FkoPrKCFk563Djj7tZFwrmRKnaBS+JTAoGAMhuQ\nLwWjRwOnAQQzfI9bMbiWRVAZCMmTluLDBAZE/9kLtqmGFPJupbqey1Nuiy9Qf1qN\nZMjgimfS+OgtFeT0RVFy9KWr0Y5sfkyvgSmVUUmf2lar+ogOSOk250QqppoWmZOd\n9O4xT+kENu3BPC3tOMShhMwyTvw+u/WPUApyLEECgYA0YL9X4r2Hd5nN6BFqxgL4\nFBJ4LpLysB9iAwiy+oaHfLTi9Rrs5JyjZwDfyVX8zPdCfF5iR4zUxfkTj7pIlwF6\niwW0byvtvdu8OU0RZpuzR5qap1tttU599Z6hV9MdFUp5KED/8Nro2+MN6NAHydcy\nd5Jv1GIbj9AK4wZitc7HPQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "storydrawer@storydrawer.iam.gserviceaccount.com",
+  "client_id": "116660926475212941567",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/storydrawer%40storydrawer.iam.gserviceaccount.com"
+}

@@ -11,15 +11,29 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UserRepository;
 
 class DashboardController extends AbstractDashboardController
 {
+    protected $userRepo;
+
+    public function __construct(UserRepository $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
+
     /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-        return parent::index();
+        $usersCount = $this->userRepo->countAllUsers()[0]['value'];
+        
+        return $this->render('bundles/EasyAdminBundle/welcome.html.twig',
+            [
+                'usersCount' => $usersCount,
+            ]
+            );
     }
 
     public function configureDashboard(): Dashboard

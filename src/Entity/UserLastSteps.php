@@ -34,6 +34,16 @@ class UserLastSteps
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $restart_number;
+
+    public function __construct()
+    {
+        $this->setRestartNumber(0);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +81,18 @@ class UserLastSteps
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRestartNumber(): ?int
+    {
+        return $this->restart_number;
+    }
+
+    public function setRestartNumber(?int $restart_number): self
+    {
+        $this->restart_number = $restart_number;
 
         return $this;
     }

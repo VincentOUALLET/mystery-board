@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -26,22 +27,31 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('password', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'type' => PasswordType::class,
+                //  not sure of the use of mapped
                 'mapped' => false,
+                'invalid_message' => 'Les mots de passe doivent être identiques.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Répétez le mot de passe'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                            // this message will never be print because of browsers messages having priority on this one,
+                            // they even don't allow the handlerequest to be called, no BACK checks can be done before
+                            'message' => 'S\'il vous plaît, entrez un mot de passe.',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit être d\'au moins {{ limit }} caractères.',
                         // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
+                        'max' => 20,
+                    ])
                 ],
-            ])
+            ]);
         ;
     }
 
