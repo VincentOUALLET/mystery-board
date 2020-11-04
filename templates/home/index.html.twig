@@ -3,7 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <div>
+    <div class="container-fluid col-md-8">
         {% if app.user == "" %}
             <h1 class="text-center">Bienvenue sur StoryDrawer</h1>
             <a class="btn btn-primary m-3" href="{{ path("app_login") }}"><h3>Se connecter</h3></a>

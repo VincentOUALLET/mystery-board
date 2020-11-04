@@ -4,11 +4,15 @@ namespace App\Entity;
 
 use App\Repository\StepRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=StepRepository::class)
+ * @Vich\Uploadable
  */
 class Step
 {
@@ -64,9 +68,35 @@ class Step
      */
     private $choice_2;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $featured_image;
+
+    /**
+     * 
+     * @Assert\File(
+     *     maxSize = "10Mi",
+     * )
+     * @Vich\UploadableField(mapping="featured_images", fileNameProperty="featured_image")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserEndingStepsRecords::class, mappedBy="step")
+     */
+    private $userEndingStepsRecords;
+
     public function __construct()
     {
         $this->userLastSteps = new ArrayCollection();
+        $this->userEndingStepsRecords = new ArrayCollection();
+        $this->setUpdatedAt(new \DateTime('now'));
     }
     
     public function getId(): ?int
@@ -185,6 +215,75 @@ class Step
     public function setChoice2(?string $choice_2): self
     {
         $this->choice_2 = $choice_2;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getFeaturedImage()
+    {
+        return $this->featured_image;
+    }
+
+    public function setFeaturedImage($featured_image)
+    {
+        $this->featured_image = $featured_image;
+
+        return $this;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updated_at = new \DateTime('now');
+        }
+    }    
+
+    /**
+     * @return Collection|UserEndingStepsRecords[]
+     */
+    public function getUserEndingStepsRecords(): Collection
+    {
+        return $this->userEndingStepsRecords;
+    }
+
+    public function addUserEndingStepsRecord(UserEndingStepsRecords $userEndingStepsRecord): self
+    {
+        if (!$this->userEndingStepsRecords->contains($userEndingStepsRecord)) {
+            $this->userEndingStepsRecords[] = $userEndingStepsRecord;
+            $userEndingStepsRecord->setStep($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEndingStepsRecord(UserEndingStepsRecords $userEndingStepsRecord): self
+    {
+        if ($this->userEndingStepsRecords->contains($userEndingStepsRecord)) {
+            $this->userEndingStepsRecords->removeElement($userEndingStepsRecord);
+            // set the owning side to null (unless already changed)
+            if ($userEndingStepsRecord->getStep() === $this) {
+                $userEndingStepsRecord->setStep(null);
+            }
+        }
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Entity\Step;
 use App\Entity\Story;
 use App\Entity\User;
 use App\Entity\UserLastSteps;
+use App\Entity\UserEndingStepsRecords;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -45,9 +46,10 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateurs', 'icon class', User::class);
-        yield MenuItem::linkToCrud('Etapes', 'icon class', Step::class);
-        yield MenuItem::linkToCrud('Histoires', 'icon class', Story::class);
-        yield MenuItem::linkToCrud('Sauvegardes utilisateurs', 'icon class', UserLastSteps::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+        yield MenuItem::linkToCrud('Histoires', 'fas fa-book', Story::class);
+        yield MenuItem::linkToCrud('Etapes', 'far fa-object-ungroup', Step::class);
+        yield MenuItem::linkToCrud('Sauvegardes utilisateur', 'fas fa-save', UserLastSteps::class);
+        yield MenuItem::linkToCrud('Etapes finales effectuées', 'far fa-save', UserEndingStepsRecords::class);
     }
 }

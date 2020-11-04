@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Repository\StoryRepository;
 use App\Repository\UserLastStepsRepository;
+use App\Repository\UserEndingStepsRecordsRepository;
 use App\Repository\StepRepository;
 use App\Entity\UserLastSteps;
+use App\Entity\UserEndingStepsRecords;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -92,17 +94,11 @@ class StoryController extends AbstractController
             $currentLastStep = $currentUserSLastStep->getLastStep();
 
         }
-        // //////////////////////
-        // WIP - adding ending templates tests in purpose to add 1 to the total of the current user's ended templates (stats)
-        // $isStep1AnEnding = $currentLastStep->getChoice1() === null;
-        // $isStep2AnEnding = $currentLastStep->getChoice2() === null;
 
         return $this->render('story/show.html.twig', [
             'user' => $currentUser,
             'story' => $currentStory,
             'step' => $currentLastStep,
-            // 'isStep1AnEnding' => $isStep1AnEnding,
-            // 'isStep2AnEnding' => $isStep2AnEnding,
         ]);
     }
 
@@ -117,8 +113,10 @@ class StoryController extends AbstractController
      */
     public function setLastStep(
         UserLastStepsRepository $userLastStepsRepository,
+        UserEndingStepsRecordsRepository $userEndingStepsRecordsRepository,
         StoryRepository $storyRepository,
         StepRepository $stepRepository,
+
         int $story_id,
         string $custom_id
         )
@@ -128,11 +126,11 @@ class StoryController extends AbstractController
         {
             return $this->render('security/login.html.twig', ['last_username' => null, 'error' => null]);
         }
-        $story = $storyRepository->find($story_id);
+        $currentStory = $storyRepository->find($story_id);
 
         $newStep = $stepRepository->findBy(
             [
-                "story" => $story,
+                "story" => $currentStory,
                 "custom_id" => $custom_id,
             ]
             );
@@ -141,14 +139,44 @@ class StoryController extends AbstractController
         $currentUserSLastStep = $userLastStepsRepository->findBy(
             [
                 'user' => $currentUser,
-                'story' => $story,
+                'story' => $currentStory,
             ],
         );
 
         $currentUserSLastStep[0]->setLastStep($newStep[0]);
 
         $entityManager = $this->getDoctrine()->getManager();
+
         $entityManager->persist($currentUserSLastStep[0]);
+
+        // //////////////////////
+        // WIP - adding ending templates tests in purpose to add 1 to the total of the current user's ended templates (stats)
+        $isStep1AnEnding = $newStep[0]->getChoice1() === null;
+        $isStep2AnEnding = $newStep[0]->getChoice2() === null;
+
+        if ($isStep1AnEnding && $isStep2AnEnding )
+        {
+            $newEndingStep = new UserEndingStepsRecords();
+
+            $newEndingStep->setUser($currentUser);
+            $newEndingStep->setStory($currentStory);
+            $newEndingStep->setStep($newStep[0]);
+            // dd($newEndingStep);
+
+            $newEndingStepCheckIfExist = $userEndingStepsRecordsRepository->findBy(
+                [
+                    'user' => $currentUser,
+                    'story' => $currentStory,
+                    'step' => $newStep[0],
+                ],
+            );
+            if (!$newEndingStepCheckIfExist)
+            {
+                $entityManager->persist($newEndingStep);
+            }
+
+        }
+
         try {
             $entityManager->flush();
         } catch(\Exception $e) {
@@ -171,7 +199,7 @@ class StoryController extends AbstractController
 
         return $this->render('story/show.html.twig', [
             'user' => $currentUser,
-            'story' => $story,
+            'story' => $currentStory,
             'step' => $newStep[0],
         ]);
     }

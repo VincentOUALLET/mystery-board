@@ -8,6 +8,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class StepCrudController extends AbstractCrudController
 {
@@ -27,6 +29,9 @@ class StepCrudController extends AbstractCrudController
             TextField::new('choice_1', 'Choix 1 redirige vers étape'),
             TextEditorField::new('label_choice_2', 'Choix 2'),
             TextField::new('choice_2', 'Choix 2 redirige vers étape'),
+            ImageField::new('imageFile')
+            ->setFormType(VichImageType::class)
+            ->setLabel('Image'),
         ];
     }
 }
