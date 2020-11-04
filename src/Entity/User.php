@@ -44,12 +44,18 @@ class User implements UserInterface
      */
     private $userLastSteps;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserEndingStepsRecords::class, mappedBy="user")
+     */
+    private $userEndingStepsRecords;
+
     public function __construct()
     {
         $this->userLastSteps = new ArrayCollection();
         $this->setRoles([
             "ROLE_USER"
         ]);
+        $this->userEndingStepsRecords = new ArrayCollection();
     }
 
     public function __toString()
@@ -160,6 +166,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($userLastStep->getUser() === $this) {
                 $userLastStep->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserEndingStepsRecords[]
+     */
+    public function getUserEndingStepsRecords(): Collection
+    {
+        return $this->userEndingStepsRecords;
+    }
+
+    public function addUserEndingStepsRecord(UserEndingStepsRecords $userEndingStepsRecord): self
+    {
+        if (!$this->userEndingStepsRecords->contains($userEndingStepsRecord)) {
+            $this->userEndingStepsRecords[] = $userEndingStepsRecord;
+            $userEndingStepsRecord->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEndingStepsRecord(UserEndingStepsRecords $userEndingStepsRecord): self
+    {
+        if ($this->userEndingStepsRecords->contains($userEndingStepsRecord)) {
+            $this->userEndingStepsRecords->removeElement($userEndingStepsRecord);
+            // set the owning side to null (unless already changed)
+            if ($userEndingStepsRecord->getUser() === $this) {
+                $userEndingStepsRecord->setUser(null);
             }
         }
 

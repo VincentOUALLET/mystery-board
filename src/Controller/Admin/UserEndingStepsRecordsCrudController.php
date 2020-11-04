@@ -2,16 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\UserLastSteps;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use App\Entity\UserEndingStepsRecords;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class UserLastStepsCrudController extends AbstractCrudController
+class UserEndingStepsRecordsCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return UserLastSteps::class;
+        return UserEndingStepsRecords::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -20,8 +20,7 @@ class UserLastStepsCrudController extends AbstractCrudController
             IntegerField::new('id', 'Identifiant')->onlyOnIndex(),
             AssociationField::new('user', 'Utilisateur'),
             AssociationField::new('story', 'Histoire'),
-            AssociationField::new('last_step', 'Dernière étape'),
-            IntegerField::new('restart_number', 'Nombre de redémarrages'),
+            AssociationField::new('step', 'Etape finale concernée'),
         ];
     }
 }

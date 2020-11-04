@@ -46,10 +46,16 @@ class Story
      */
     private $first_step;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserEndingStepsRecords::class, mappedBy="story")
+     */
+    private $userEndingStepsRecords;
+
     public function __construct()
     {
         $this->steps = new ArrayCollection();
         $this->userLastSteps = new ArrayCollection();
+        $this->userEndingStepsRecords = new ArrayCollection();
     }
 
     public function __toString()
@@ -156,6 +162,37 @@ class Story
     public function setFirstStep(Step $first_step): self
     {
         $this->first_step = $first_step;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserEndingStepsRecords[]
+     */
+    public function getUserEndingStepsRecords(): Collection
+    {
+        return $this->userEndingStepsRecords;
+    }
+
+    public function addUserEndingStepsRecord(UserEndingStepsRecords $userEndingStepsRecord): self
+    {
+        if (!$this->userEndingStepsRecords->contains($userEndingStepsRecord)) {
+            $this->userEndingStepsRecords[] = $userEndingStepsRecord;
+            $userEndingStepsRecord->setStory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEndingStepsRecord(UserEndingStepsRecords $userEndingStepsRecord): self
+    {
+        if ($this->userEndingStepsRecords->contains($userEndingStepsRecord)) {
+            $this->userEndingStepsRecords->removeElement($userEndingStepsRecord);
+            // set the owning side to null (unless already changed)
+            if ($userEndingStepsRecord->getStory() === $this) {
+                $userEndingStepsRecord->setStory(null);
+            }
+        }
 
         return $this;
     }

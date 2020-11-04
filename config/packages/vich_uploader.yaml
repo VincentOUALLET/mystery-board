@@ -1,0 +1,15 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'
+        featured_images:
+            # variable créée dans service.yaml
+            uri_prefix: "/uploads/final-template-image"
+            # namer interne à Vich renomme les fichiers de façon unique
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            upload_destination: '%kernel.project_dir%/public/uploads/final-template-image'
+            delete_on_update: true
+            delete_on_remove: true
