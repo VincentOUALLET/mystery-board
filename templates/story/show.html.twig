@@ -3,12 +3,11 @@
 {% block title %}Story show{% endblock %}
 
 {% block body %}
-    <div class="container-fluid col-md-6">
         <div class="mt-3 mb-md-5 mb-3">
             <a class="btn btn-warning" href="{{ path('home') }}">
                 <h4>Accueil</h4>
             </a>
-            <a class="btn btn-danger" href="{{ path('reset_last_step', {'story_id': story.id}) }}">
+            <a class="btn btn-danger float-right" href="{{ path('reset_last_step', {'story_id': story.id}) }}">
                 <h4>Recommencer l'histoire</h4>
             </a>
         </div>
@@ -17,10 +16,10 @@
             <h3 class="text-justify">{{step.description|raw}}</h3>
             {% if step.getFeaturedImage() != "" %}
             <div class="row d-flex align-items-center justify-content-center">
-                <div class="my-5">
+                <div class="my-5 justify-content-center">
                     <img src="{{asset('uploads/final-template-image/' ~ step.getFeaturedImage() )}}"
                     alt="image du film {{step.getCustomId}}"
-                    style="max-width: 300px">
+                    style="max-width: 90%; margin-left: 5%;">
                 </div>
             </div>
             {% endif %}
@@ -29,6 +28,7 @@
                     <a href="{{ path('set_last_step', {'story_id': story.id, 'custom_id': step.getChoice1}) }}" class="bg-light col-lg-6 col-xs-12 card btn">
                         <div class="p-3">
                             <p>Choix 1:</p>
+                            <i class="fas fa-sign-out-alt"></i>
                             <h3 class="text-justify">{{step.getLabelChoice1|raw}}</h3>
                         </div>
                     </a>
@@ -50,5 +50,4 @@
         {% else %}
             <div>Etapes non remplies</div>
         {% endif %}
-    </div>
 {% endblock %}

@@ -21,9 +21,9 @@
             {{ form_row(registrationForm.agreeTerms, {
                 label: 'Accepter les termes'
             }) }}
-            <button type="submit" class="btn btn-lg btn-primary">S'enregistrer</button>
+            <button type="submit" class="btn btn-lg btn-primary col-12">S'enregistrer</button>
         {{ form_end(registrationForm) }}
-        <h3 class="mt-5">Déjà un compte?</h3>
-        <a href=" {{ path('app_login')}} " class="btn btn-lg btn-primary">Connectez vous</a>
+        <h3 class="mt-5 mb-4">Déjà un compte?</h3>
+        <a href=" {{ path('app_login')}} " class="btn btn-lg btn-primary col-12">Connectez vous</a>
     </div>
 {% endblock %}
