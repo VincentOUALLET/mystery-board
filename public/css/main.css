@@ -19,6 +19,7 @@
 body {
     background-color: black;
     color: lightgrey;
+    font-family: Georgia, serif;
     /* font-family: 'imprimerieregular'; */
 }
 
@@ -51,3 +52,18 @@ h4 {
     color: red;
     font-size: 200%;
 } */
+
+    /* .btn{
+        background-color: #515052;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .btn:hover{
+        background-color: #333138;
+        padding: 10 px;
+        border-radius: 5px;
+        border: none;
+    } */
+
