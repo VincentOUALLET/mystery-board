@@ -69,11 +69,6 @@ class Step
     private $choice_2;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updated_at;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $featured_image;
@@ -92,10 +87,21 @@ class Step
      */
     private $userEndingStepsRecords;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $created_at;
+    
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $updated_at;
+
     public function __construct()
     {
         $this->userLastSteps = new ArrayCollection();
         $this->userEndingStepsRecords = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime('now'));
         $this->setUpdatedAt(new \DateTime('now'));
     }
     
@@ -284,6 +290,18 @@ class Step
                 $userEndingStepsRecord->setStep(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

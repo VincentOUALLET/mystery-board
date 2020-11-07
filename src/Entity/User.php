@@ -49,12 +49,24 @@ class User implements UserInterface
      */
     private $userEndingStepsRecords;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $updated_at;
+
     public function __construct()
     {
         $this->userLastSteps = new ArrayCollection();
         $this->setRoles([
             "ROLE_USER"
         ]);
+        $this->setCreatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(new \DateTime('now'));
         $this->userEndingStepsRecords = new ArrayCollection();
     }
 
@@ -199,6 +211,30 @@ class User implements UserInterface
                 $userEndingStepsRecord->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

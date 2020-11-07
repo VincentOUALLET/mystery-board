@@ -16,6 +16,7 @@ class UserType extends AbstractType
             ->add('roles')
             ->add('password')
             ->add('last_step')
+            // ->add('created_at')
         ;
     }
 
