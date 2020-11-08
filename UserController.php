@@ -9,19 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/utilisateur")
- * @IsGranted("ROLE_USER")
+ * @Route("/user")
  */
 class UserController extends AbstractController
 {
     
     /**
-     * @Route("/index", name="user_index", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * 
+     * @Route("/", name="user_index", methods={"GET"})
      * @param UserRepository $userRepository
      * @return Response
      */
@@ -34,7 +30,6 @@ class UserController extends AbstractController
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -57,11 +52,10 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="user_show", methods={"GET"})
+     * @Route("/{id}", name="user_show", methods={"GET"})
      */
-    public function show(): Response
+    public function show(User $user): Response
     {
-        $user = $this->getUser();
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -88,11 +82,10 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/effacer", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}", name="user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request): Response
+    public function delete(Request $request, User $user): Response
     {
-        $user = $this->getUser();
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);

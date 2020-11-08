@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark border-light border-bottom mb-4 sticky-top navbarImprove" id="mainNav">
+    
+    <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{{ path("home") }}">
+        <h2>StoryDrawer</h2>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse fontResponsivity" id="navbarResponsive">
+        <p class="text-white d-lg-flex d-none">StoryDrawer</p>
+        <ul class="navbar-nav m-auto align-items-lg-center">
+            {# ========= ADMIN ========= #}
+            {% if is_granted('ROLE_ADMIN') %}
+            <a class="nav-link" href="{{ path("admin") }}">
+                <li
+                class="nav-item px-lg-4 text-uppercase text-expanded">
+                    Admin
+                </li>
+            </a>
+            {% endif %}
+            {# ========= ACCUEIL ========= #}
+            <li
+            {% if app.request.get('_route') == 'home' %} class="active nav-item px-lg-4"{% endif %}
+            class="nav-item px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="{{ path("home") }}">Accueil</a>
+            </li>
+            {# ============ CO ============ #}
+            {% if app.user == "" %}
+                <a class="nav-link" href="{{ path("app_login") }}">
+                    <li
+                    class="nav-item px-lg-4 btn button button-primary text-uppercase text-expanded rounded">
+                        Se connecter
+                    </li>
+                </a>
+                {% else %}
+                    {# ============ HISTOIRES ============ #}
+                    <li
+                    {% if app.request.get('_route') == 'story_index' %} class="active nav-item px-lg-4"{% endif %}
+                    class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{{ path("story_index") }}">Histoires</a>
+                    </li>
+                    {# ========= PROFIL ========= #}
+                    <li
+                    {% if app.request.get('_route') == 'user_show' %} class="active nav-item px-lg-4"{% endif %}
+                    class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded"
+                        {% if app.user != '' %}
+                        href="{{ path("user_show") }}"
+                        {% else %}
+                        {# onclick="alert('Vous n\'êtes pas connecté');" #}
+                        href="{{ path('app_login') }}"
+                        {% endif %}>
+                        Profil
+                        </a>
+                    </li>
+                    {# ============ DECO ============ #}
+                    <a class="nav-link" href="{{ path("app_logout") }}">
+                        <li
+                        class="nav-item px-lg-4 btn button button-primary text-uppercase">
+                            Se déconnecter
+                        </li>
+                    </a>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
