@@ -6,24 +6,31 @@
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-    <div class="my-2 col-md-3">
-        <a class="btn btn-warning" href="{{ path("home") }}">Accueil</a>
+    <div class="my-2 col-sm-3 col-lg-12">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 align-items-center mb-5">
+                <h3 class="">Créer son compte (*)</h3>
 
-        <h3 class="mt-3">Créer son compte</h3>
-
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.email, {
-                label: 'Email'
-            }) }}
-            {{ form_row(registrationForm.password, {
-                label: 'Mot de passe'
-            }) }}
-            {{ form_row(registrationForm.agreeTerms, {
-                label: 'Accepter les termes'
-            }) }}
-            <button type="submit" class="btn btn-lg btn-primary col-12">S'enregistrer</button>
-        {{ form_end(registrationForm) }}
-        <h3 class="mt-5 mb-4">Déjà un compte?</h3>
-        <a href=" {{ path('app_login')}} " class="btn btn-lg btn-primary col-12">Connectez vous</a>
+                {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.email, {
+                        label: 'Email'
+                    }) }}
+                    {{ form_row(registrationForm.password, {
+                        label: 'Mot de passe'
+                    }) }}
+                    {# {{ form_row(registrationForm.agreeTerms, {
+                        label: 'Accepter les termes'
+                    }) }} #}
+                    <button type="submit" class="btn button button-primary col-12">S'enregistrer</button>
+                {{ form_end(registrationForm) }}
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <h3 class="mb-3">Déjà un compte?</h3>
+                <a href=" {{ path('app_login')}} " class="btn button button-primary col-12">Connectez vous</a>        
+            </div>
+        </div>
+        <h4 class="mt-5">
+            (*) Nous n'utilisons vos données qu'afin de sauvegarder vos avancées, et de customiser votre compte lorsque vous le souhaitez.
+        </h4>
     </div>
 {% endblock %}

@@ -23,9 +23,36 @@ body {
     /* font-family: 'imprimerieregular'; */
 }
 
+/* ====== MY BUTTONS ========= */
+.button{
+    color: white;
+    background-color: black;
+}
 
-h2, p {
-    font-size: 170%;
+.button:hover{
+    color: lightgrey;
+}
+
+.button-danger{
+    border: 1px solid red;
+}
+
+.button-success{
+    border: 1px solid green;
+}
+
+.button-warning{
+    border: 1px solid yellow;
+}
+
+.button-primary{
+    border: 1px solid blue;
+}
+
+/* ============================ */
+
+.table{
+    color: lightgrey;
 }
 
 .card {
@@ -36,7 +63,15 @@ h2, p {
 
 h1 {
     color: white;
-    font-size: 350%;
+    font-size: 250%;
+}
+
+h2, p {
+    font-size: 170%;
+}
+
+p{
+    color: lightgrey;
 }
 
 h3 {
@@ -67,3 +102,15 @@ h4 {
         border: none;
     } */
 
+.navbarImprove {
+    /* color: white; */
+    background-color: black;
+    /* position: sticky; */
+}
+
+.myCards {
+    padding: 2%;
+    margin-bottom: 2%;
+    border: 1px solid white;
+    border-radius: 3px;
+}
