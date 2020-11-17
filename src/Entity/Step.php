@@ -97,12 +97,18 @@ class Step
      */
     private $updated_at;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $played_number;
+
     public function __construct()
     {
         $this->userLastSteps = new ArrayCollection();
         $this->userEndingStepsRecords = new ArrayCollection();
         $this->setCreatedAt(new \DateTime('now'));
         $this->setUpdatedAt(new \DateTime('now'));
+        $this->setPlayedNumber(0);
     }
     
     public function getId(): ?int
@@ -302,6 +308,18 @@ class Step
     public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getPlayedNumber(): ?int
+    {
+        return $this->played_number;
+    }
+
+    public function setPlayedNumber(?int $played_number): self
+    {
+        $this->played_number = $played_number;
 
         return $this;
     }

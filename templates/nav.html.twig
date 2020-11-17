@@ -8,7 +8,9 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse fontResponsivity" id="navbarResponsive">
-        <p class="text-white d-lg-flex d-none">StoryDrawer</p>
+        <a class="btn" href="{{ path("home") }}">
+            <p class="text-white d-lg-flex d-none">StoryDrawer</p>
+        </a>
         <ul class="navbar-nav m-auto align-items-lg-center">
             {# ========= ADMIN ========= #}
             {% if is_granted('ROLE_ADMIN') %}
