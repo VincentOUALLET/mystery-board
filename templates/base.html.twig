@@ -10,15 +10,20 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% if app.request.get('_route') != 'story_show' and app.request.get('_route') != 'set_last_step' and app.request.get('_route') != 'reset_last_step' %}
+            {{ include('nav.html.twig') }}
+        {% endif %}
 
-    {{ include('nav.html.twig') }}
+        <div 
+        {% if app.request.get('_route') != 'story_show' and app.request.get('_route') != 'set_last_step' and app.request.get('_route') != 'reset_last_step' %}
+        class="container-fluid col-md-6 mb-3"
+        {% endif %}>
+            {% block body %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        </div>
 
-    <div class="container-fluid col-md-6 mb-3">
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </div>
 
-
+        {# <script type="text/javascript" src="/scripts/fullScreenImage.js"></script> #}
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

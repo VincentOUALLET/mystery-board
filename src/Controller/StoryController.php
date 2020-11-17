@@ -122,6 +122,8 @@ class StoryController extends AbstractController
         )
     {
         $currentUser = $this->getUser();
+        $entityManager = $this->getDoctrine()->getManager();
+
         if ($currentUser === null)
         {
             return $this->render('security/login.html.twig', ['last_username' => null, 'error' => null]);
@@ -133,8 +135,13 @@ class StoryController extends AbstractController
                 "story" => $currentStory,
                 "custom_id" => $custom_id,
             ]
-            );
+        );
 
+        // save the new number of times the current step has been played (stats)
+        $newPlayedNumber = $newStep[0]->getPlayedNumber() +1;
+        $newStep[0]->setPlayedNumber($newPlayedNumber);
+        $newStep[0]->setUpdatedAt(new \DateTime('now'));
+        $entityManager->persist($newStep[0]);
         
         $currentUserSLastStep = $userLastStepsRepository->findBy(
             [
@@ -143,18 +150,20 @@ class StoryController extends AbstractController
             ],
         );
 
-        $currentUserSLastStep[0]->setLastStep($newStep[0]);
+        if ($newStep[0]->getCustomId() != "postscriptum")
+        {
+            $currentUserSLastStep[0]->setLastStep($newStep[0]);
 
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $entityManager->persist($currentUserSLastStep[0]);
+            $entityManager->persist($currentUserSLastStep[0]);
+        }
 
         // //////////////////////
         // WIP - adding ending templates tests in purpose to add 1 to the total of the current user's ended templates (stats)
         $isStep1AnEnding = $newStep[0]->getChoice1() === null;
         $isStep2AnEnding = $newStep[0]->getChoice2() === null;
 
-        if ($isStep1AnEnding && $isStep2AnEnding )
+        // save the current userEndingStepsRecords if step is an ending and not if it's the postscriptum's one (credits)
+        if ($isStep1AnEnding && $isStep2AnEnding && $newStep[0]->getCustomId() !="postscriptum" )
         {
             $newEndingStep = new UserEndingStepsRecords();
 

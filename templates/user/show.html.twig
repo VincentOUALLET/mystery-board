@@ -16,7 +16,7 @@
                 <th>Role :</th>
                 <td>
                     {% if user.roles[0] == "ROLE_USER" %}
-                    Utilisateur
+                    Lecteur
                     {% elseif user.roles[0] == "ROLE_WRITER" %}
                     Ecrivain
                     {% elseif user.roles[0] == "ROLE_MODERATOR" %}
@@ -39,13 +39,14 @@
         </a>
         {% endif %}
 
+        {% if is_granted('ROLE_ADMIN') %}
         <a
         class="btn button button-warning"
-        {% if is_granted('ROLE_ADMIN') %}
         href="{{ path('user_edit', {'id': user.id}) }}"
-        {% endif %}>
+        >
         Modifier
         </a>
+        {% endif %}
     </div>
     {% if is_granted('ROLE_ADMIN') %}
     {{ include('user/_delete_form.html.twig') }}
