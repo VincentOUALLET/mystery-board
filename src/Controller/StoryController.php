@@ -153,6 +153,7 @@ class StoryController extends AbstractController
         if ($newStep[0]->getCustomId() != "postscriptum")
         {
             $currentUserSLastStep[0]->setLastStep($newStep[0]);
+            $currentUserSLastStep[0]->setUpdatedAt(new \DateTime('now'));
 
             $entityManager->persist($currentUserSLastStep[0]);
         }

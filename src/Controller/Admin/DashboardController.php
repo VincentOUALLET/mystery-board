@@ -40,16 +40,25 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('DRAWER');
+            ->setTitle('STORYDRAWER')
+            ;
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linktoDashboard('Accueil', 'fa fa-home');
+        
+        yield MenuItem::section('Général');
+
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Histoires', 'fas fa-book', Story::class);
         yield MenuItem::linkToCrud('Etapes', 'far fa-object-ungroup', Step::class);
+
+        yield MenuItem::section('Sauvegardes');
         yield MenuItem::linkToCrud('Sauvegardes utilisateur', 'fas fa-save', UserLastSteps::class);
         yield MenuItem::linkToCrud('Etapes finales effectuées', 'far fa-save', UserEndingStepsRecords::class);
+
+        // yield MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit');
+
     }
 }

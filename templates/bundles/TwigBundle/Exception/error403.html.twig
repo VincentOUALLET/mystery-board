@@ -1,11 +1,2 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Story ending{% endblock %}
-
-{% block body %}
-    <div class="container-fluid">
-        <a class="text-uppercase btn btn-warning my-3" href="{{ path('home') }}">Accueil</a>
-        <a class="text-uppercase btn btn-danger my-3" href="{{ path('reset_last_step', {'story_id': story.id}) }}">Recommencer l'histoire</a>
-        <h1 style="fontsize: 30px">Fin de l'histoire</h1>
-    </div>
-{% endblock %}
+<h3 class="border border-danger bg-danger text-center">Vous avez été déconnecté, reconnectez-vous</h3>
+{{ include('home/index.html.twig') }}

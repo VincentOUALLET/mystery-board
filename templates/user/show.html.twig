@@ -51,8 +51,13 @@
     {% if is_granted('ROLE_ADMIN') %}
     {{ include('user/_delete_form.html.twig') }}
     {% endif %}
-    <div class="justify-content-center btn button button-success mt-5">
-        <h2>Mes étapes effectuées</h2>
+</div>
+
+<div class="myCards">
+    <div class="d-flex justify-content-center ">
+        <div class="btn button button-success">
+            <h2>Mon historique</h2>
+        </div>
     </div>
 </div>
 

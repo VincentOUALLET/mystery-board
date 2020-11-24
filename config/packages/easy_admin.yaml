@@ -2,3 +2,29 @@ easy_admin:
     entities:
         # List the entity class name you want to manage
         - App\Entity\User
+        # - App\Entity\Story
+        # - App\Entity\Step
+        # - App\Entity\UserLastSteps
+        # - App\Entity\UserEndingStepsRecords
+
+
+
+# easy_admin:
+#     entities:
+#         # List the entity class name you want to manage
+#         Items:
+#             class: App\Entity\Items
+#             controller: App\Controller\EasyAdmin\ItemsController
+#             form:
+#                 fields:
+#                     - {property: 'title'}
+#                     -
+#                         property: country
+#                         type_options:
+#                             query_builder: [App\Controller\EasyAdmin\ItemsController, getCountryTypeQueryBuilder]
+#         Country:
+#             class: App\Entity\Country
+#             form:
+#                 fields:
+#                     - {property: 'name'}
+#                     - {property: 'code'}

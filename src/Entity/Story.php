@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=StoryRepository::class)
- * IsGranted("ROLE_USER", statusCode=404, message="Vous n'êtes pas/plus connecté")
  */
 class Story
 {

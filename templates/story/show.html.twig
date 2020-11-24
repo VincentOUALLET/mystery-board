@@ -32,7 +32,6 @@
                         <a href="{{ path('set_last_step', {'story_id': story.id, 'custom_id': step.getChoice1}) }}" class="bg-light col-lg-6 col-xs-12 card btn">
                             <div class="p-3">
                                 <p class="text-dark">Choix 1:</p>
-                                <i class="fas fa-sign-out-alt"></i>
                                 <h3 class="text-justify">{{step.getLabelChoice1|raw}}</h3>
                             </div>
                         </a>
@@ -45,9 +44,10 @@
                     </div>
                 {% else %}
                     {% if step.getCustomId != "postscriptum" %}    
-                        <div class="row">
+                        <div class="row mt-5">
                             <a href="{{ path('set_last_step', {'story_id': story.id, 'custom_id': "postscriptum"}) }}" class="btn button button-success mx-3 mb-3">
-                            <h2>Post-scriptum</h2></a>
+                            <h3>Post-scriptum</h3>
+                            </a>
                         </div>
                     {% endif %}
                 {% endif %}
